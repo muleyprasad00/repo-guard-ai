@@ -1,0 +1,86 @@
+<h2 mat-dialog-title>{{ repository.name }}</h2>
+
+<mat-dialog-content>
+  <section class="summary">
+    <div>
+      <span class="label">Owner</span>
+      <span>{{ repository.owner.login }}</span>
+    </div>
+    <div>
+      <span class="label">Default branch</span>
+      <span>{{ repository.defaultBranch }}</span>
+    </div>
+    <div>
+      <span class="label">Updated</span>
+      <span>{{ repository.updatedAt | date: 'medium' }}</span>
+    </div>
+  </section>
+
+  <p class="description">{{ repository.description || 'No description provided.' }}</p>
+
+  <mat-chip-set aria-label="Repository properties">
+    <mat-chip>{{ repository.private ? 'Private' : 'Public' }}</mat-chip>
+    @if (repository.language) {
+      <mat-chip>{{ repository.language }}</mat-chip>
+    }
+    @if (repository.archived) {
+      <mat-chip>Archived</mat-chip>
+    }
+  </mat-chip-set>
+
+  <mat-divider></mat-divider>
+
+  @if (loading()) {
+    <div class="dialog-loading">
+      <mat-progress-spinner diameter="36" mode="indeterminate"></mat-progress-spinner>
+    </div>
+  } @else if (error()) {
+    <div class="dialog-error">
+      <mat-icon>error</mat-icon>
+      <span>{{ error() }}</span>
+    </div>
+  } @else {
+    <mat-tab-group>
+      <mat-tab label="Branches">
+        @if (branches().length) {
+          <mat-list>
+            @for (branch of branches(); track branch.name) {
+              <mat-list-item>
+                <mat-icon matListItemIcon>account_tree</mat-icon>
+                <div matListItemTitle>{{ branch.name }}</div>
+                <div matListItemLine>{{ branch.commit.sha.slice(0, 7) }}</div>
+              </mat-list-item>
+            }
+          </mat-list>
+        } @else {
+          <p class="tab-empty">No branches returned by GitHub.</p>
+        }
+      </mat-tab>
+
+      <mat-tab label="Workflows">
+        @if (workflows().length) {
+          <mat-list>
+            @for (workflow of workflows(); track workflow.id) {
+              <mat-list-item>
+                <mat-icon matListItemIcon>play_circle</mat-icon>
+                <div matListItemTitle>{{ workflow.name }}</div>
+                <div matListItemLine>{{ workflow.state }} · {{ workflow.path }}</div>
+              </mat-list-item>
+            }
+          </mat-list>
+        } @else {
+          <p class="tab-empty">No GitHub Actions workflows found.</p>
+        }
+      </mat-tab>
+    </mat-tab-group>
+  }
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <a mat-button color="primary" [href]="repository.htmlUrl" target="_blank" rel="noopener noreferrer">
+    <mat-icon>open_in_new</mat-icon>
+    Open GitHub
+  </a>
+  <button type="button" mat-stroked-button mat-dialog-close>Close</button>
+</mat-dialog-actions>
+

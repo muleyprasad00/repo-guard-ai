@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { authGuard } from './core/auth/auth.guard';
 
 export const routes: Routes = [
   { 
@@ -13,31 +14,37 @@ export const routes: Routes = [
       { 
         path: 'dashboard', 
         title: 'Dashboard - RepoGuard AI',
+        canActivate: [authGuard],
         loadComponent: () => import('./features/dashboard/dashboard.component').then(m => m.DashboardComponent) 
       },
       { 
         path: 'repositories', 
         title: 'Repositories - RepoGuard AI',
+        canActivate: [authGuard],
         loadComponent: () => import('./features/repositories/repository-list/repository-list.component').then(m => m.RepositoryListComponent) 
       },
       { 
         path: 'scans', 
         title: 'Scans - RepoGuard AI',
+        canActivate: [authGuard],
         loadComponent: () => import('./features/scans/scan-list/scan-list.component').then(m => m.ScanListComponent) 
       },
       { 
         path: 'vulnerabilities', 
         title: 'Vulnerabilities - RepoGuard AI',
+        canActivate: [authGuard],
         loadComponent: () => import('./features/vulnerabilities/vulnerability-list/vulnerability-list.component').then(m => m.VulnerabilityListComponent) 
       },
       { 
         path: 'ai-review', 
         title: 'AI Review - RepoGuard AI',
+        canActivate: [authGuard],
         loadComponent: () => import('./features/ai-review/ai-review.component').then(m => m.AiReviewComponent) 
       },
       { 
         path: 'workflows', 
         title: 'Workflows - RepoGuard AI',
+        canActivate: [authGuard],
         loadComponent: () => import('./features/workflows/workflows.component').then(m => m.WorkflowsComponent) 
       },
       { 

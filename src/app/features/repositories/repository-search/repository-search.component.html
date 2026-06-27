@@ -1,0 +1,46 @@
+<div class="repository-search">
+  <mat-form-field appearance="outline" class="search-field">
+    <mat-label>Search repositories</mat-label>
+    <mat-icon matPrefix>search</mat-icon>
+    <input
+      matInput
+      type="search"
+      [ngModel]="searchText()"
+      (ngModelChange)="searchTextChange.emit($event)"
+    />
+    @if (searchText()) {
+      <button
+        type="button"
+        mat-icon-button
+        matSuffix
+        aria-label="Clear repository search"
+        (click)="searchTextChange.emit('')"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="sort-field">
+    <mat-label>Sort by</mat-label>
+    <mat-select [value]="sortBy()" (selectionChange)="onSortByChange($event)">
+      <mat-option value="updated">Updated</mat-option>
+      <mat-option value="name">Name</mat-option>
+      <mat-option value="stars">Stars</mat-option>
+      <mat-option value="language">Language</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="direction-field">
+    <mat-label>Order</mat-label>
+    <mat-select [value]="sortDirection()" (selectionChange)="onSortDirectionChange($event)">
+      <mat-option value="desc">Desc</mat-option>
+      <mat-option value="asc">Asc</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button type="button" mat-icon-button aria-label="Refresh repositories" (click)="refresh.emit()">
+    <mat-icon>refresh</mat-icon>
+  </button>
+</div>
+

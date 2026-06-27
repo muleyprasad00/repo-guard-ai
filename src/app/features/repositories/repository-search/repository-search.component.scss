@@ -1,0 +1,27 @@
+.repository-search {
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) minmax(140px, 180px) minmax(120px, 150px) 48px;
+  gap: 12px;
+  align-items: start;
+}
+
+.search-field,
+.sort-field,
+.direction-field {
+  width: 100%;
+}
+
+button[mat-icon-button] {
+  margin-top: 4px;
+}
+
+@media (max-width: 760px) {
+  .repository-search {
+    grid-template-columns: 1fr;
+  }
+
+  button[mat-icon-button] {
+    margin-top: 0;
+  }
+}
+

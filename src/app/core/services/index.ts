@@ -1,6 +1,5 @@
-
 export * from './github.service';
-export * from './authentication.service';
+export * from './github-api.service';
 export * from './repository.service';
 export * from './scan.service';
 export * from './workflow.service';

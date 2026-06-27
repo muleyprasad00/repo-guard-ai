@@ -1,0 +1,28 @@
+.empty-state {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  padding: 56px 16px;
+  text-align: center;
+  color: #4b5563;
+}
+
+mat-icon {
+  color: #78909c;
+  font-size: 48px;
+  height: 48px;
+  width: 48px;
+}
+
+h3 {
+  margin: 0;
+  color: #1f2937;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+p {
+  margin: 0 0 8px;
+  max-width: 420px;
+}
+

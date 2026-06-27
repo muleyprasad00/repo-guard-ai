@@ -1,10 +1,53 @@
-<mat-card class="page-container">
-  <mat-card-header>
-    <mat-card-title>Repositories</mat-card-title>
-    <mat-card-subtitle>List of all connected GitHub repositories.</mat-card-subtitle>
-  </mat-card-header>
-  <mat-card-content>
-    <!-- TODO: Implement Repositories UI -->
-    <p>Placeholder content for Repositories.</p>
-  </mat-card-content>
-</mat-card>
+<section class="repositories-page">
+  <div class="page-heading">
+    <div>
+      <h1>Repositories</h1>
+      <p>Browse connected GitHub repositories and inspect branch and workflow metadata.</p>
+    </div>
+    <button
+      type="button"
+      mat-stroked-button
+      color="primary"
+      (click)="repositoryService.loadRepositories()"
+      [disabled]="repositoryService.loading()"
+    >
+      <mat-icon>refresh</mat-icon>
+      Refresh
+    </button>
+  </div>
+
+  <mat-card class="toolbar-card" appearance="outlined">
+    <mat-card-content>
+      <app-repository-search
+        [searchText]="repositoryService.searchText()"
+        [sortBy]="repositoryService.sortBy()"
+        [sortDirection]="repositoryService.sortDirection()"
+        (searchTextChange)="setSearchText($event)"
+        (sortByChange)="setSortBy($event)"
+        (sortDirectionChange)="setSortDirection($event)"
+        (refresh)="repositoryService.loadRepositories()"
+      />
+    </mat-card-content>
+  </mat-card>
+
+  @if (repositoryService.loading()) {
+    <app-repository-loading />
+  } @else if (!repositoryService.filteredRepositories().length) {
+    <app-repository-empty-state
+      [hasSearch]="!!repositoryService.searchText()"
+      (refresh)="repositoryService.loadRepositories()"
+    />
+  } @else {
+    <div class="repository-grid">
+      @for (repository of repositoryService.filteredRepositories(); track repository.id) {
+        <app-repository-card
+          [repository]="repository"
+          [selected]="repositoryService.selectedRepository()?.id === repository.id"
+          (selectedChange)="selectRepository($event)"
+          (details)="openDetails($event)"
+          (scan)="scanRepository($event)"
+        />
+      }
+    </div>
+  }
+</section>

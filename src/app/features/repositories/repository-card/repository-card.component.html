@@ -1,0 +1,69 @@
+<mat-card
+  class="repository-card"
+  [class.repository-card--selected]="selected()"
+  appearance="outlined"
+  (click)="selectedChange.emit(repository())"
+>
+  <mat-card-header>
+    <mat-card-title>
+      <span>{{ repository().name }}</span>
+      @if (repository().archived) {
+        <mat-icon class="state-icon" matTooltip="Archived repository">archive</mat-icon>
+      }
+    </mat-card-title>
+    <mat-card-subtitle>{{ repository().fullName }}</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+    <p class="description">
+      {{ repository().description || 'No description provided.' }}
+    </p>
+
+    <mat-chip-set aria-label="Repository metadata">
+      <mat-chip [class.private-chip]="repository().private">
+        {{ repository().private ? 'Private' : 'Public' }}
+      </mat-chip>
+      @if (repository().language) {
+        <mat-chip>{{ repository().language }}</mat-chip>
+      }
+    </mat-chip-set>
+
+    <div class="metadata">
+      <span>
+        <mat-icon>update</mat-icon>
+        Updated {{ repository().updatedAt | date: 'mediumDate' }}
+      </span>
+      <span>
+        <mat-icon>star</mat-icon>
+        {{ repository().stargazersCount }}
+      </span>
+      <span>
+        <mat-icon>call_split</mat-icon>
+        {{ repository().forksCount }}
+      </span>
+    </div>
+  </mat-card-content>
+
+  <mat-card-actions align="end">
+    <button
+      type="button"
+      mat-button
+      color="primary"
+      matTooltip="Scan integration is not enabled in this feature"
+      (click)="$event.stopPropagation(); scan.emit(repository())"
+    >
+      <mat-icon>radar</mat-icon>
+      Scan
+    </button>
+    <button
+      type="button"
+      mat-stroked-button
+      color="primary"
+      (click)="$event.stopPropagation(); details.emit(repository())"
+    >
+      <mat-icon>info</mat-icon>
+      Details
+    </button>
+  </mat-card-actions>
+</mat-card>
+

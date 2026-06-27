@@ -1,0 +1,16 @@
+<section class="empty-state">
+  <mat-icon>{{ hasSearch() ? 'manage_search' : 'folder_off' }}</mat-icon>
+  <h3>{{ hasSearch() ? 'No matching repositories' : 'No repositories found' }}</h3>
+  <p>
+    {{
+      hasSearch()
+        ? 'Adjust your search or sorting filters to find a repository.'
+        : 'Connect a GitHub account with repository access and refresh this view.'
+    }}
+  </p>
+  <button type="button" mat-stroked-button color="primary" (click)="refresh.emit()">
+    <mat-icon>refresh</mat-icon>
+    Refresh
+  </button>
+</section>
+

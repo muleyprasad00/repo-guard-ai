@@ -3,8 +3,45 @@
     <mat-card-title>Settings</mat-card-title>
     <mat-card-subtitle>Application configuration and user preferences.</mat-card-subtitle>
   </mat-card-header>
-  <mat-card-content>
-    <!-- TODO: Implement Settings UI -->
-    <p>Placeholder content for Settings.</p>
+  
+  <mat-card-content class="settings-content">
+    <div class="settings-section">
+      <h3>GitHub Connection</h3>
+      
+      @if (authService.isAuthenticated()) {
+        <div class="connected-user-card">
+          <div class="user-info">
+            <img [src]="authService.currentUser()?.avatarUrl" alt="Avatar" class="avatar" />
+            <div class="user-details">
+              <span class="name">{{ authService.currentUser()?.name || authService.currentUser()?.login }}</span>
+              <span class="status"><mat-icon class="success-icon">check_circle</mat-icon> Connected</span>
+            </div>
+          </div>
+          <div class="actions">
+            <button mat-button (click)="validate()" [disabled]="isConnecting()">Validate</button>
+            <button mat-stroked-button color="warn" (click)="disconnect()">Logout</button>
+          </div>
+        </div>
+      } @else {
+        <form [formGroup]="patForm" (ngSubmit)="connect()" class="connect-form">
+          <p>Please enter your GitHub Personal Access Token to continue.</p>
+          
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Personal Access Token</mat-label>
+            <input matInput [type]="hidePassword() ? 'password' : 'text'" formControlName="token" />
+            <button type="button" mat-icon-button matSuffix (click)="togglePasswordVisibility()" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword()">
+              <mat-icon>{{hidePassword() ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            @if (patForm.hasError('invalidToken')) {
+              <mat-error>Invalid token or connection failed.</mat-error>
+            }
+          </mat-form-field>
+
+          <button mat-raised-button color="primary" type="submit" [disabled]="patForm.invalid || isConnecting()">
+            {{ isConnecting() ? 'Connecting...' : 'Connect' }}
+          </button>
+        </form>
+      }
+    </div>
   </mat-card-content>
 </mat-card>
