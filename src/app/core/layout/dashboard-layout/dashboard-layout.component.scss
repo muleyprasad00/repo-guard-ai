@@ -1,0 +1,106 @@
+// Dashboard Layout CSS Variables
+:host {
+  --layout-sidenav-width: 280px;
+  --layout-toolbar-height: 64px;
+  --layout-bg-color: #f8f9fa;
+  --layout-border-color: rgba(0, 0, 0, 0.12);
+  --layout-active-bg: rgba(0, 0, 0, 0.04);
+  --layout-active-color: #3f51b5;
+  --layout-logo-color: #3f51b5;
+  --layout-text-color: #333333;
+}
+
+.sidenav-container {
+  height: 100vh;
+  background-color: var(--layout-bg-color);
+}
+
+.sidenav {
+  width: var(--layout-sidenav-width);
+  border-right: 1px solid var(--layout-border-color);
+  background-color: #ffffff;
+}
+
+.sidenav-header {
+  height: var(--layout-toolbar-height);
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  border-bottom: 1px solid var(--layout-border-color);
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-icon {
+  color: var(--layout-logo-color);
+}
+
+.app-title {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--layout-text-color);
+}
+
+.app-title-mobile {
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin-left: 8px;
+}
+
+.mat-mdc-nav-list {
+  padding-top: 8px;
+  
+  .active-route {
+    background-color: var(--layout-active-bg);
+    color: var(--layout-active-color);
+    font-weight: 500;
+
+    .mat-icon {
+      color: var(--layout-active-color);
+    }
+  }
+}
+
+.toolbar {
+  height: var(--layout-toolbar-height);
+  border-bottom: 1px solid var(--layout-border-color);
+  background-color: #ffffff;
+  padding: 0 16px;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.avatar-btn {
+  margin-left: 8px;
+}
+
+.avatar-placeholder {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  
+  mat-icon {
+    color: #757575;
+    font-size: 20px;
+    height: 20px;
+    width: 20px;
+  }
+}
+
+.main-content {
+  padding: 24px;
+  height: calc(100vh - var(--layout-toolbar-height));
+  overflow-y: auto;
+  box-sizing: border-box;
+}

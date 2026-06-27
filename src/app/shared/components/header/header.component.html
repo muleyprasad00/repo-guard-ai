@@ -1,0 +1,23 @@
+<mat-toolbar color="primary">
+      <button mat-icon-button (click)="toggleSidebar()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span>RepoGuard AI</span>
+      <span class="spacer"></span>
+      <button mat-icon-button>
+        <mat-icon>notifications</mat-icon>
+      </button>
+      <button mat-button [matMenuTriggerFor]="menu">
+        <mat-icon>account_circle</mat-icon> Profile
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item>
+          <mat-icon>settings</mat-icon>
+          <span>Settings</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>exit_to_app</mat-icon>
+          <span>Logout</span>
+        </button>
+      </mat-menu>
+    </mat-toolbar>

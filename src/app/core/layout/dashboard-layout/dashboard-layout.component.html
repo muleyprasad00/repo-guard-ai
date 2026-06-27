@@ -1,0 +1,76 @@
+<mat-sidenav-container class="sidenav-container">
+  <!-- Sidebar -->
+  <mat-sidenav
+    #drawer
+    class="sidenav"
+    [attr.role]="isHandset() ? 'dialog' : 'navigation'"
+    [mode]="isHandset() ? 'over' : 'side'"
+    [opened]="!isHandset()">
+    <div class="sidenav-header">
+      <div class="logo-container">
+        <!-- Logo Placeholder -->
+        <mat-icon class="logo-icon">shield</mat-icon>
+        <span class="app-title">RepoGuard AI</span>
+      </div>
+    </div>
+    <mat-nav-list>
+      @for (item of navItems; track item.route) {
+        <a mat-list-item [routerLink]="item.route" routerLinkActive="active-route">
+          <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+          <div matListItemTitle>{{ item.label }}</div>
+        </a>
+      }
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="sidenav-content">
+    <!-- Toolbar -->
+    <mat-toolbar class="toolbar" color="surface">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="isHandset()">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      
+      <span *ngIf="isHandset()" class="app-title-mobile">RepoGuard AI</span>
+      
+      <span class="spacer"></span>
+
+      <!-- Notifications -->
+      <button mat-icon-button aria-label="Notifications">
+        <mat-icon>notifications</mat-icon>
+      </button>
+
+      <!-- Settings -->
+      <button mat-icon-button aria-label="Settings" routerLink="/settings">
+        <mat-icon>settings</mat-icon>
+      </button>
+
+      <!-- User Profile -->
+      <button mat-icon-button class="avatar-btn" [matMenuTriggerFor]="userMenu">
+        <div class="avatar-placeholder">
+          <mat-icon>person</mat-icon>
+        </div>
+      </button>
+      
+      <mat-menu #userMenu="matMenu">
+        <button mat-menu-item>
+          <mat-icon>account_circle</mat-icon>
+          <span>Profile</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>exit_to_app</mat-icon>
+          <span>Logout</span>
+        </button>
+      </mat-menu>
+    </mat-toolbar>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <router-outlet></router-outlet>
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>

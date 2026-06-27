@@ -1,0 +1,21 @@
+.stat-card {
+  height: 100%;
+  .stat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  .stat-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: #666;
+  }
+  .stat-value {
+    font-size: 32px;
+    font-weight: 500;
+  }
+  &.primary { border-top: 4px solid #3f51b5; }
+  &.accent { border-top: 4px solid #ff4081; }
+  &.warn { border-top: 4px solid #f44336; }
+}

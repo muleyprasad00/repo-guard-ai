@@ -1,0 +1,11 @@
+<mat-card class="stat-card" [ngClass]="color">
+  <mat-card-content>
+    <div class="stat-header">
+      <span class="stat-title">{{ title }}</span>
+      @if (icon) {
+        <mat-icon [color]="color !== 'default' ? color : undefined">{{ icon }}</mat-icon>
+      }
+    </div>
+    <div class="stat-value">{{ value }}</div>
+  </mat-card-content>
+</mat-card>
